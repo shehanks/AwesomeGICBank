@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AwesomeGICBank.Core\AwesomeGICBank.Core.csproj" />
+  </ItemGroup>
+
 </Project>
