@@ -19,6 +19,10 @@ namespace AwesomeGICBank.Infrastructure.DataAccess
             modelBuilder.Entity<BankAccount>()
                 .HasKey(b => b.Id);
 
+            modelBuilder.Entity<BankAccount>()
+                .Property(t => t.Balance)
+                .HasPrecision(18, 2);
+
             modelBuilder.Entity<Transaction>()
                 .HasKey(t => t.Id);
 
