@@ -28,7 +28,8 @@ namespace AwesomeGICBank.Infrastructure.DataAccess
 
             modelBuilder.Entity<Transaction>()
                 .Property(t => t.Type)
-                .HasConversion<string>();
+                .HasConversion<string>()
+                .HasMaxLength(1);
 
             modelBuilder.Entity<Transaction>()
                 .Property(t => t.Amount)
