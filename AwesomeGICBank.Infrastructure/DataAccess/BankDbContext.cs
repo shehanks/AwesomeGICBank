@@ -20,6 +20,10 @@ namespace AwesomeGICBank.Infrastructure.DataAccess
                 .HasKey(b => b.Id);
 
             modelBuilder.Entity<BankAccount>()
+                .HasIndex(t => t.AccountNumber)
+                .IsUnique();
+
+            modelBuilder.Entity<BankAccount>()
                 .Property(t => t.Balance)
                 .HasPrecision(18, 2);
 
