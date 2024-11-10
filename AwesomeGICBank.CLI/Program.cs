@@ -1,4 +1,5 @@
 ﻿using AwesomeGICBank.Application.Contracts;
+using AwesomeGICBank.Infrastructure.DataAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,8 +18,16 @@ namespace AwesomeGICBank.CLI
                .ConfigureServices((context, services) =>
                {
                    services.ConfigureServices(context.Configuration);
+                   services.AddTransient<DatabaseInitializer>();  // Register DatabaseInitializer
                })
                .Build();
+
+            // Initialize the database
+            using (var scope = host.Services.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+                await initializer.InitializeAsync(); // Run database initialization
+            }
 
             // Resolve the main service and run the application
             var app = host.Services.GetRequiredService<IBankingServiceCoordinator>();
