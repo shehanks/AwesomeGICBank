@@ -6,9 +6,9 @@ namespace AwesomeGICBank.Application.Contracts
     {
         Task<TransactionDto?> CreateTransactionAsync(CreateTransactionRequest createTransactionRequest);
 
-        Task<List<TransactionDto>> GetTransactionsByAccount(string accountNumber);
+        Task<List<TransactionDto>> GetTransactionsByAccountAsync(string accountNumber);
 
-        Task<List<TransactionDto>> GetTransactionsForMonth(string accountNumber, int year, int month);
+        Task<List<TransactionDto>> GetTransactionsForMonthAsync(string accountNumber, int year, int month);
 
         /// <summary>
         /// This method is for fetching all the transactions up to enddate, to calculate running balance up to enddate.
@@ -17,6 +17,6 @@ namespace AwesomeGICBank.Application.Contracts
         /// <param name="accountNumber"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        Task<decimal> GetTransactionsUntilDate(string accountNumber, DateTime endDate);
+        Task<decimal> GetTransactionsUntilDateAsync(string accountNumber, DateTime endDate);
     }
 }

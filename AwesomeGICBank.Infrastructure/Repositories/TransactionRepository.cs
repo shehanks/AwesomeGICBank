@@ -13,7 +13,7 @@ namespace AwesomeGICBank.Infrastructure.Repositories
         {
         }
 
-        public async Task<decimal> GetQueryableTransactionsUntilDate(string accountId, DateTime endDate)
+        public async Task<decimal> GetQueryableTransactionsUntilDateAsync(string accountId, DateTime endDate)
         {
             return await dbContext.Transactions
                 .Where(t => t.BankAccount!.AccountNumber == accountId && t.Date <= endDate)

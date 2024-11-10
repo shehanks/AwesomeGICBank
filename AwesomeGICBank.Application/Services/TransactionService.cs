@@ -20,7 +20,7 @@ namespace AwesomeGICBank.Application.Services
 
         public async Task<TransactionDto?> CreateTransactionAsync(CreateTransactionRequest createTransactionRequest)
         {
-            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumber(createTransactionRequest.AccountNumber);
+            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumberAsync(createTransactionRequest.AccountNumber);
             var transaction = _mapper.Map<Transaction>(createTransactionRequest);
 
             if (account is null)
@@ -65,9 +65,9 @@ namespace AwesomeGICBank.Application.Services
             return _mapper.Map<TransactionDto>(transaction);
         }
 
-        public async Task<List<TransactionDto>> GetTransactionsByAccount(string accountNumber)
+        public async Task<List<TransactionDto>> GetTransactionsByAccountAsync(string accountNumber)
         {
-            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumber(accountNumber);
+            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumberAsync(accountNumber);
 
             if (account is not null)
             {
@@ -81,9 +81,9 @@ namespace AwesomeGICBank.Application.Services
             return await Task.FromResult(new List<TransactionDto>());
         }
 
-        public async Task<List<TransactionDto>> GetTransactionsForMonth(string accountNumber, int year, int month)
+        public async Task<List<TransactionDto>> GetTransactionsForMonthAsync(string accountNumber, int year, int month)
         {
-            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumber(accountNumber);
+            var account = await _unitOfWork.BankAccountRepository.GetByAccountNumberAsync(accountNumber);
 
             if (account is not null)
             {
@@ -97,7 +97,7 @@ namespace AwesomeGICBank.Application.Services
             return await Task.FromResult(new List<TransactionDto>());
         }
 
-        public async Task<decimal> GetTransactionsUntilDate(string accountNumber, DateTime endDate) =>
-            await _unitOfWork.TransactionRepository.GetQueryableTransactionsUntilDate(accountNumber, endDate);
+        public async Task<decimal> GetTransactionsUntilDateAsync(string accountNumber, DateTime endDate) =>
+            await _unitOfWork.TransactionRepository.GetQueryableTransactionsUntilDateAsync(accountNumber, endDate);
     }
 }

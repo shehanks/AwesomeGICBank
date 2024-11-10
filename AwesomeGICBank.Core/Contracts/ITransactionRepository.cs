@@ -14,6 +14,6 @@ namespace AwesomeGICBank.Core.Contracts
         /// <param name="accountId"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        Task<decimal> GetQueryableTransactionsUntilDate(string accountId, DateTime endDate);
+        Task<decimal> GetQueryableTransactionsUntilDateAsync(string accountId, DateTime endDate);
     }
 }

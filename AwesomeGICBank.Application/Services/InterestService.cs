@@ -24,7 +24,7 @@ namespace AwesomeGICBank.Application.Contracts
             return _mapper.Map<InterestRuleDto>(interestRule);
         }
 
-        public async Task<List<InterestRuleDto>> GetAllRules()
+        public async Task<List<InterestRuleDto>> GetAllRulesAsync()
         {
             var insertRules = await _unitOfWork.InterestRuleRepository
                 .GetAsync(orderBy: o => o.OrderBy(d => d.Date));

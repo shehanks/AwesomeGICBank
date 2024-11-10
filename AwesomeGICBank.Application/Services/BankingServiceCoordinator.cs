@@ -20,7 +20,7 @@ namespace AwesomeGICBank.Application.Services
             _interestService = interestService;
         }
 
-        public async Task Run()
+        public async Task RunAsync()
         {
             bool exit = false;
             bool firstTime = true;
@@ -109,7 +109,7 @@ namespace AwesomeGICBank.Application.Services
                     continue;
                 }
 
-                await PrintTransactions(accountNumber);
+                await PrintTransactionsAsync(accountNumber);
 
                 Console.WriteLine();
                 break;
@@ -149,7 +149,7 @@ namespace AwesomeGICBank.Application.Services
 
                 var rule = await _interestService.CreateInterestRuleAsync(transactionRequest);
 
-                await PrintRules();
+                await PrintRulesAsync();
 
                 Console.WriteLine();
                 break;
@@ -186,7 +186,7 @@ namespace AwesomeGICBank.Application.Services
                     break;
                 }
 
-                var totalInterest = await GetMonthlyInterest(statementDate, monthStatements!);
+                var totalInterest = await GetMonthlyInterestAsync(statementDate, monthStatements!);
 
                 monthStatements!.Add(new TransactionDto
                 {
@@ -207,10 +207,10 @@ namespace AwesomeGICBank.Application.Services
 
         #region Support Methods
 
-        async Task<decimal> GetMonthlyInterest(DateTime statementDate, List<TransactionDto> monthStatements)
+        async Task<decimal> GetMonthlyInterestAsync(DateTime statementDate, List<TransactionDto> monthStatements)
         {
             decimal totalInterest = 0;
-            var rules = await _interestService.GetAllRules();
+            var rules = await _interestService.GetAllRulesAsync();
 
             var lastDayOfMOnth = DateTime.DaysInMonth(statementDate.Year, statementDate.Month);
             var statementDateMargins = ImmutableList<(DateTime startDate, DateTime endDate, int numberOfDays)>.Empty
@@ -244,10 +244,10 @@ namespace AwesomeGICBank.Application.Services
 
         async Task<List<TransactionDto>?> GetMonthlyStatementAsync(string accountNumber, DateTime statementDate)
         {
-            var startingBalance = await _transactionService.GetTransactionsUntilDate(accountNumber, statementDate);
+            var startingBalance = await _transactionService.GetTransactionsUntilDateAsync(accountNumber, statementDate);
 
             // Fetch all transactions for the current month
-            var transactions = await _transactionService.GetTransactionsForMonth(accountNumber, statementDate.Year, statementDate.Month);
+            var transactions = await _transactionService.GetTransactionsForMonthAsync(accountNumber, statementDate.Year, statementDate.Month);
 
             // Start with the calculated starting balance
             decimal runningBalance = startingBalance;
@@ -286,9 +286,9 @@ namespace AwesomeGICBank.Application.Services
             Console.Write("> ");
         }
 
-        async Task PrintTransactions(string accountNumber)
+        async Task PrintTransactionsAsync(string accountNumber)
         {
-            var transactions = await _transactionService.GetTransactionsByAccount(accountNumber);
+            var transactions = await _transactionService.GetTransactionsByAccountAsync(accountNumber);
 
             if (transactions?.Any() == true)
             {
@@ -301,9 +301,9 @@ namespace AwesomeGICBank.Application.Services
             }
         }
 
-        async Task PrintRules()
+        async Task PrintRulesAsync()
         {
-            var interestRules = await _interestService.GetAllRules();
+            var interestRules = await _interestService.GetAllRulesAsync();
 
             if (interestRules?.Any() == true)
             {

@@ -12,7 +12,7 @@ namespace AwesomeGICBank.Infrastructure.Repositories
         {
         }
 
-        public async Task<BankAccount?> GetByAccountNumber(string accountNumber)
+        public async Task<BankAccount?> GetByAccountNumberAsync(string accountNumber)
         {
             return await dbContext.BankAccounts.FirstOrDefaultAsync(x => x.AccountNumber == accountNumber);
         }

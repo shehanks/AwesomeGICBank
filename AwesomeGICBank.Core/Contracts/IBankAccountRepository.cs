@@ -7,6 +7,6 @@ namespace AwesomeGICBank.Core.Contracts
         // Add method definitions of repository specific methods if required.
         // Override base repository methods if required.
 
-        Task<BankAccount?> GetByAccountNumber(string accountNumber);
+        Task<BankAccount?> GetByAccountNumberAsync(string accountNumber);
     }
 }

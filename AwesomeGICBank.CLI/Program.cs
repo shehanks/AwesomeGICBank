@@ -22,7 +22,7 @@ namespace AwesomeGICBank.CLI
 
             // Resolve the main service and run the application
             var app = host.Services.GetRequiredService<IBankingServiceCoordinator>();
-            await app.Run();
+            await app.RunAsync();
         }
     }
 }

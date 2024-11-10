@@ -2,6 +2,6 @@
 {
     public interface IBankingServiceCoordinator
     {
-        Task Run();
+        Task RunAsync();
     }
 }

@@ -6,6 +6,6 @@ namespace AwesomeGICBank.Application.Contracts
     {
         Task<InterestRuleDto> CreateInterestRuleAsync(CreateInterestRuleRequest createInterestRuleRequest);
 
-        Task<List<InterestRuleDto>> GetAllRules();
+        Task<List<InterestRuleDto>> GetAllRulesAsync();
     }
 }
