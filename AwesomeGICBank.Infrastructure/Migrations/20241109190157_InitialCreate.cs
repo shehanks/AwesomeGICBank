@@ -17,7 +17,7 @@ namespace AwesomeGICBank.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
@@ -47,8 +47,9 @@ namespace AwesomeGICBank.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    TxnId = table.Column<int>(type: "int", nullable: false),
                     BankAccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -61,6 +62,12 @@ namespace AwesomeGICBank.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BankAccounts_AccountNumber",
+                table: "BankAccounts",
+                column: "AccountNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BankAccountId",

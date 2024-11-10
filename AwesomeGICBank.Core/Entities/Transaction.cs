@@ -14,8 +14,12 @@ namespace AwesomeGICBank.Core.Entities
         [Required]
         public decimal Amount { get; set; }
 
+        [Required]
+        public int TxnId { get; set; }
+
         // Foreign Key
         public int BankAccountId { get; set; }
-        public BankAccount BankAccount { get; set; } = new BankAccount();
+
+        public BankAccount? BankAccount { get; set; }
     }
 }

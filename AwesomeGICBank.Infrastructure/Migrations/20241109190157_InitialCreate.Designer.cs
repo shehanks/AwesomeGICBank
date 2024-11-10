@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AwesomeGICBank.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    [Migration("20241109083715_MakeAccountNumberUnique")]
-    partial class MakeAccountNumberUnique
+    [Migration("20241109190157_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace AwesomeGICBank.Infrastructure.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("TxnId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Type")
                         .IsRequired()
