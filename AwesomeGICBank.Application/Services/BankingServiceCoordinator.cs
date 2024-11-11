@@ -9,14 +9,14 @@ namespace AwesomeGICBank.Application.Services
     public class BankingServiceCoordinator : IBankingServiceCoordinator
     {
         private readonly ITransactionService _transactionService;
-        private readonly IInterestService _interestService;
+        private readonly IInterestRuleService _interestRuleService;
 
         public BankingServiceCoordinator(
             ITransactionService transactionService,
-            IInterestService interestService)
+            IInterestRuleService interestService)
         {
             _transactionService = transactionService;
-            _interestService = interestService;
+            _interestRuleService = interestService;
         }
 
         public async Task RunAsync()
@@ -148,7 +148,7 @@ namespace AwesomeGICBank.Application.Services
                     CreationDate = ruleDate
                 };
 
-                var rule = await _interestService.CreateInterestRuleAsync(transactionRequest);
+                var rule = await _interestRuleService.CreateInterestRuleAsync(transactionRequest);
 
                 await PrintRulesAsync();
 
@@ -211,7 +211,7 @@ namespace AwesomeGICBank.Application.Services
         async Task<decimal> GetMonthlyInterestAsync(DateTime statementDate, List<TransactionDto> monthStatements)
         {
             decimal totalInterest = 0;
-            var rules = await _interestService.GetAllRulesAsync();
+            var rules = await _interestRuleService.GetAllRulesAsync();
 
             var lastDayOfMOnth = DateTime.DaysInMonth(statementDate.Year, statementDate.Month);
             var statementDateMargins = ImmutableList<(DateTime startDate, DateTime endDate, int numberOfDays)>.Empty
@@ -304,7 +304,7 @@ namespace AwesomeGICBank.Application.Services
 
         async Task PrintRulesAsync()
         {
-            var interestRules = await _interestService.GetAllRulesAsync();
+            var interestRules = await _interestRuleService.GetAllRulesAsync();
 
             if (interestRules?.Any() == true)
             {

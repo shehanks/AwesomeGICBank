@@ -2,7 +2,7 @@
 
 namespace AwesomeGICBank.Application.Contracts
 {
-    public interface IInterestService
+    public interface IInterestRuleService
     {
         Task<InterestRuleDto> CreateInterestRuleAsync(CreateInterestRuleRequest createInterestRuleRequest);
 

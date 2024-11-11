@@ -31,7 +31,7 @@ namespace AwesomeGICBank.CLI
 
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
-            services.AddScoped<IInterestService, InterestService>();
+            services.AddScoped<IInterestRuleService, InterestRuleService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IBankingServiceCoordinator, BankingServiceCoordinator>();
 

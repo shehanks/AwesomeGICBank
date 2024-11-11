@@ -5,12 +5,12 @@ using AwesomeGICBank.Core.Entities;
 
 namespace AwesomeGICBank.Application.Contracts
 {
-    public class InterestService : IInterestService
+    public class InterestRuleService : IInterestRuleService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public InterestService(IMapper mapper, IUnitOfWork unitOfWork)
+        public InterestRuleService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;

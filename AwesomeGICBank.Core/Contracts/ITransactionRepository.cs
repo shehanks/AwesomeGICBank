@@ -11,9 +11,9 @@ namespace AwesomeGICBank.Core.Contracts
         /// This method is for fetching all the transactions up to enddate, to calculate running balance up to enddate.
         /// Additionally, using projection where only Type and Amount are fetched to optimize performance.
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountNumber"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        Task<decimal> GetQueryableTransactionsUntilDateAsync(string accountId, DateTime endDate);
+        Task<decimal> GetQueryableTransactionsUntilDateAsync(string accountNumber, DateTime endDate);
     }
 }
