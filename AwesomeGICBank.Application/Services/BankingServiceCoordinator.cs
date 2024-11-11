@@ -3,7 +3,6 @@ using AwesomeGICBank.Application.Dtos;
 using AwesomeGICBank.Application.Helpers;
 using AwesomeGICBank.Core.Enums;
 using System.Collections.Immutable;
-using System.Globalization;
 
 namespace AwesomeGICBank.Application.Services
 {
@@ -63,7 +62,7 @@ namespace AwesomeGICBank.Application.Services
 
         #region Main Menu Methods 
 
-        async Task ProcessTransactionAsync()
+        public async Task ProcessTransactionAsync()
         {
             while (true)
             {
@@ -77,9 +76,10 @@ namespace AwesomeGICBank.Application.Services
                 var parameters = input.Split(' ');
 
                 if (parameters.Length != 4 ||
-                    !DateTime.TryParseExact(parameters[0], "yyyyMMdd", null, DateTimeStyles.None, out DateTime transactionDate) ||
+                    !ValidationHelper.TryParseDate(parameters[0], "yyyyMMdd", out DateTime transactionDate) ||
                     string.IsNullOrWhiteSpace(parameters[1]) ||
-                    !decimal.TryParse(parameters[3], out decimal transactionAmount) || transactionAmount <= 0)
+                    !ValidationHelper.TryParseDecimal(parameters[3], out decimal transactionAmount) ||
+                    transactionAmount <= 0)
                 {
                     Console.WriteLine("Invalid input format. Please try again.");
                     continue;
@@ -116,7 +116,7 @@ namespace AwesomeGICBank.Application.Services
             }
         }
 
-        async Task DefineInterestRuleAsync()
+        public async Task DefineInterestRuleAsync()
         {
             while (true)
             {
@@ -130,9 +130,10 @@ namespace AwesomeGICBank.Application.Services
                 var parameters = input.Split(' ');
 
                 if (parameters.Length != 3 ||
-                    !DateTime.TryParseExact(parameters[0], "yyyyMMdd", null, DateTimeStyles.None, out DateTime ruleDate) ||
+                    !ValidationHelper.TryParseDate(parameters[0], "yyyyMMdd", out DateTime ruleDate) ||
                     string.IsNullOrWhiteSpace(parameters[1]) ||
-                    !decimal.TryParse(parameters[2], out decimal ratePercentage) || (ratePercentage is <= 0 or >= 100))
+                    !ValidationHelper.TryParseDecimal(parameters[2], out decimal ratePercentage) ||
+                    !ValidationHelper.IsInRange(ratePercentage, 0, 100))
                 {
                     Console.WriteLine("Invalid input format. Please try again.");
                     continue;
@@ -156,7 +157,7 @@ namespace AwesomeGICBank.Application.Services
             }
         }
 
-        async Task PrintStatementAsync()
+        public async Task PrintStatementAsync()
         {
             while (true)
             {
@@ -171,7 +172,7 @@ namespace AwesomeGICBank.Application.Services
 
                 if (parameters.Length != 2 ||
                     string.IsNullOrWhiteSpace(parameters[0]) ||
-                    !DateTime.TryParseExact($"{parameters[1]}01", "yyyyMMdd", null, DateTimeStyles.None, out DateTime statementDate))
+                    !ValidationHelper.TryParseDate($"{parameters[1]}01", "yyyyMMdd", out DateTime statementDate))
                 {
                     Console.WriteLine("Invalid input format. Please try again.");
                     continue;

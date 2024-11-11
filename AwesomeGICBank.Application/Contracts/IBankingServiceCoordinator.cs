@@ -3,5 +3,11 @@
     public interface IBankingServiceCoordinator
     {
         Task RunAsync();
+
+        Task ProcessTransactionAsync();
+
+        Task DefineInterestRuleAsync();
+
+        Task PrintStatementAsync();
     }
 }
